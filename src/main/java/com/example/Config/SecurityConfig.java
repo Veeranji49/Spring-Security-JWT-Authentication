@@ -20,7 +20,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfig {
 
     @Bean
-    public UserDetailsService userDetails(PasswordEncoder encoder){
+    public UserDetailsService userDetails(PasswordEncoder encoder) {
 
         UserDetails admin = User.builder()
                 .username("anji")
@@ -54,7 +54,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder(){
+    public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

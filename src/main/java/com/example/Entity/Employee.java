@@ -3,21 +3,21 @@ package com.example.Entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name="employees")
+@Table(name = "employees")
 public class Employee {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id")
+    @Column(name = "id")
     private long id;
 
-    @Column(name="name")
+    @Column(name = "name")
     private String name;
 
-    @Column(name="salary")
+    @Column(name = "salary")
     private double salary;
 
-    @Column(name="location")
+    @Column(name = "location")
     private String location;
 
     //PDC
