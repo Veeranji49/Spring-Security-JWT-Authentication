@@ -23,18 +23,21 @@ public class EmployeeController {
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
     @PostMapping(value = "/save-employee")
     public ResponseEntity<Employee> saveEmployee(@RequestBody Employee employee) {
         Employee emp = employeeService.save(employee);
         return new ResponseEntity<>(emp, HttpStatus.CREATED);
     }
 
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
     @PutMapping(value = "/update-employee/{id}")
     public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee, @PathVariable long id) {
         Employee emp = employeeService.update(employee, id);
         return new ResponseEntity<>(emp, HttpStatus.OK);
     }
 
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
     @DeleteMapping(value = "/delete-employee/{id}")
     public ResponseEntity<String> deleteEmployee(@PathVariable long id) {
         employeeService.deleteById(id);
@@ -42,7 +45,7 @@ public class EmployeeController {
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }
 
-    // @PreAuthorize("hasAuthority('ROLE_USER')")
+    //@PreAuthorize("hasAuthority('ROLE_USER')")
     @GetMapping(value = "/getone/{id}")
     public ResponseEntity<Employee> getoneEmployee(@PathVariable long id) {
         Employee emp = employeeService.findById(id);

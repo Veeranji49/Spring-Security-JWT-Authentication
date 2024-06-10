@@ -38,7 +38,7 @@ public class SecurityConfig {
         return imdm;
     }
 
-    @Bean
+   /* @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
@@ -51,7 +51,24 @@ public class SecurityConfig {
                 )
                 .httpBasic(Customizer.withDefaults());
         return http.build();
+    }*/
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(req -> req
+                        //.requestMatchers("/public/rest/*").permitAll()
+                        .requestMatchers("/rest/msg").permitAll()
+                        .requestMatchers("/rest/getall").hasRole( "USER")
+                        .requestMatchers("/rest/**").hasAnyRole("ADMIN","USER")
+                        .anyRequest().authenticated()
+                )
+                .httpBasic(Customizer.withDefaults())
+                .formLogin(Customizer.withDefaults());
+        return http.build();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
