@@ -10,17 +10,12 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -29,6 +24,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @EnableWebSecurity
 @CrossOrigin
 public class SecurityConfig {
+
+    private static final String[] WHITE_LIST_URL = { "/api/v1/auth/**", "/v2/api-docs", "/v3/api-docs",
+            "/v3/api-docs/**", "/swagger-resources", "/swagger-resources/**", "/configuration/ui",
+            "/configuration/security", "/swagger-ui/**", "/webjars/**", "/swagger-ui.html", "/api/auth/**",
+            "/api/test/**", "/authenticate", "/auth/addUser", "/auth/login" };
+
 
     @Autowired
     private JwtFilter jwtFilter;
@@ -47,7 +48,7 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults()) // Apply CORS
                 .csrf(csrf -> csrf.disable()) // Disable CSRF protection
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/addUser", "/auth/login")
+                        .requestMatchers(WHITE_LIST_URL)
                         .permitAll()// Permit all requests to certain URLs
                         .anyRequest().authenticated()) // Require authentication for all other requests
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Set session management to stateless
