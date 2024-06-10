@@ -3,6 +3,8 @@ package com.example.Controller;
 import com.example.Entity.User;
 import com.example.Service.JwtService;
 import com.example.Service.UserService;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping(value="/auth")
+@Tag(name="User Controller")
 public class UserController {
 
     @Autowired
